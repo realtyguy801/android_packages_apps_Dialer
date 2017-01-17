@@ -27,5 +27,10 @@
         android:key="displayOrder"
         android:title="@string/display_options_view_names_as"
         android:dialogTitle="@string/display_options_view_names_as" />
+  
+    <com.android.contacts.common.preference.ViewModePreference
+        android:key="viewMode"
+        android:title="@string/display_options_view_mode"
+        android:dialogTitle="@string/display_options_view_mode" />
 
 </PreferenceScreen>
