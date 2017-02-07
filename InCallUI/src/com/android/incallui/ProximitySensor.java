@@ -29,13 +29,14 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
-import cyanogenmod.providers.CMSettings;
 import android.telecom.CallAudioState;
 import android.view.Display;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
+
+import cyanogenmod.providers.CMSettings;
 
 /**
  * Class manages the proximity sensor for the in-call UI.
@@ -145,7 +146,6 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
         boolean hasOngoingCall = InCallState.INCALL == newState && callList.hasLiveCall();
         boolean isOffhook = (InCallState.OUTGOING == newState) || hasOngoingCall;
         mHasIncomingCall = (InCallState.INCOMING == newState);
-
         mIsPhoneOutgoing = (InCallState.OUTGOING == newState);
 
         if (isOffhook != mIsPhoneOffhook) {
@@ -160,6 +160,10 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
 
         if (hasOngoingCall && InCallState.OUTGOING == oldState) {
             setProxSpeaker(mIsProxSensorFar);
+        }
+
+        if (mHasIncomingCall) {
+            updateProximitySensorMode();
         }
 
         if (mHasIncomingCall) {
